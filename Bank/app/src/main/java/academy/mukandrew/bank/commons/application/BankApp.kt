@@ -15,7 +15,8 @@ class BankApp : Application() {
             this,
             listOf(
                 KoinModules.applicationModules(),
-                KoinModules.getAuthModule()
+                KoinModules.getAuthModule(),
+                KoinModules.getHomeModule()
             )
         )
     }

@@ -7,4 +7,7 @@
     <string name="login_error_incorrect_password">Informe uma senha compatível</string>
     <string name="login_error">Login e/ou senha incorretos</string>
     <string name="empty" translatable="false" />
+    <string name="account">conta</string>
+    <string name="balance">saldo</string>
+    <string name="recent">Recentes</string>
 </resources>

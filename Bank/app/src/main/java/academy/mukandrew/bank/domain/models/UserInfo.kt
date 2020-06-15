@@ -12,6 +12,13 @@ data class UserInfo(
     val login: String = String(),
     val password: String = String()
 ) {
+    fun getBankNumber(): String {
+        return "$bankAccount / $agency"
+    }
+
+    fun getBalanceFormatted(): String {
+        return "R\$$balance"
+    }
 
     companion object {
         fun createFromResponse(loginResponse: LoginResponse): UserInfo {

@@ -2,6 +2,7 @@ package academy.mukandrew.bank.presenter.auth
 
 import academy.mukandrew.bank.R
 import academy.mukandrew.bank.domain.models.UserInfo
+import academy.mukandrew.bank.presenter.BankActivity
 import android.graphics.ColorFilter
 import android.graphics.PorterDuff
 import android.os.Bundle
@@ -73,8 +74,7 @@ class AuthFragment : Fragment() {
 
     private val bindLoginResult = Observer { isSuccessfully: Boolean ->
         if (isSuccessfully) {
-            // TODO
-            Snackbar.make(authPageRootView, "LOGIN SUCESSO", Snackbar.LENGTH_SHORT).show()
+            (requireActivity() as BankActivity).goToHomePage()
         }
     }
 

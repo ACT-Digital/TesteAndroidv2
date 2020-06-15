@@ -2,6 +2,7 @@ package academy.mukandrew.bank.presenter
 
 import academy.mukandrew.bank.R
 import academy.mukandrew.bank.presenter.auth.AuthFragment
+import academy.mukandrew.bank.presenter.home.HomeFragment
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -13,7 +14,7 @@ class BankActivity : AppCompatActivity() {
         goToAuthPage()
     }
 
-    fun goToHomePage() = changeCurrentFragment(AuthFragment())
+    fun goToHomePage() = changeCurrentFragment(HomeFragment())
 
     fun goToAuthPage() = changeCurrentFragment(AuthFragment())
 
