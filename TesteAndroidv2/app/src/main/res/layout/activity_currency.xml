@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.activity.CurrencyActivity">
+
+    <View
+        android:id="@+id/currency_view"
+        android:layout_width="0dp"
+        android:layout_height="200dp"
+        android:background="@color/colorPrimary"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ListView
+        android:id="@+id/currency_listview"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/currency_view" />
+
+    <TextView
+        android:id="@+id/currency_textview_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:text="José da Silva Teste"
+        android:textColor="@android:color/white"
+        android:textSize="25dp"
+        app:layout_constraintBottom_toBottomOf="@+id/currency_view"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/currency_view"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <ImageButton
+        android:id="@+id/currency_btn_logout"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:background="@color/colorPrimary"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="@+id/currency_textview_name"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/currency_textview_name"
+        android:layout_margin="8dp"
+        app:srcCompat="@mipmap/img_logout" />
+    <TextView
+        android:id="@+id/currency_textview_display_conta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/display_conta"
+        android:textColor="@android:color/white"
+        android:textSize="12dp"
+        app:layout_constraintStart_toStartOf="@+id/currency_textview_name"
+        app:layout_constraintTop_toBottomOf="@+id/currency_textview_name" />
+    <TextView
+        android:id="@+id/currency_textview_conta"
+        app:layout_constraintStart_toStartOf="@+id/currency_textview_display_conta"
+        app:layout_constraintTop_toBottomOf="@+id/currency_textview_display_conta"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="2050 / 01.111222-4"
+        android:textColor="@android:color/white"
+        android:textSize="25dp" />
+
+    <TextView
+        android:id="@+id/currency_textview_display_saldo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/display_saldo"
+        android:textColor="@android:color/white"
+        android:textSize="12dp"
+        app:layout_constraintStart_toStartOf="@+id/currency_textview_conta"
+        app:layout_constraintTop_toBottomOf="@+id/currency_textview_conta" />
+    <TextView
+        android:id="@+id/currency_textview_saldo"
+        app:layout_constraintStart_toStartOf="@+id/currency_textview_display_saldo"
+        app:layout_constraintTop_toBottomOf="@+id/currency_textview_display_saldo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="R$1.000,00"
+        android:textColor="@android:color/white"
+        android:textSize="25dp" />
+</androidx.constraintlayout.widget.ConstraintLayout>
