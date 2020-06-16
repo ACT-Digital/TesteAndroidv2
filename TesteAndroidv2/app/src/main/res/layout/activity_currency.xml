@@ -17,7 +17,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ListView
-        android:id="@+id/currency_listview"
+        android:id="@+id/currency_listview_statement"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="1dp"
@@ -27,16 +27,17 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/currency_view" />
+        app:layout_constraintTop_toBottomOf="@+id/currency_view"
+        tools:listitem="@layout/item_statement" />
 
     <TextView
         android:id="@+id/currency_textview_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:text="José da Silva Teste"
+        tools:text="@sample/account.json/userAccount/name"
         android:textColor="@android:color/white"
-        android:textSize="25dp"
+        android:textSize="25sp"
         app:layout_constraintBottom_toBottomOf="@+id/currency_view"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/currency_view"
@@ -52,44 +53,47 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="@+id/currency_textview_name"
         android:layout_margin="8dp"
-        app:srcCompat="@mipmap/img_logout" />
+        android:src="@mipmap/img_logout"
+        android:onClick="clickLogout"
+        android:contentDescription="@string/logout" />
     <TextView
-        android:id="@+id/currency_textview_display_conta"
+        android:id="@+id/currency_textview_display_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/display_conta"
         android:textColor="@android:color/white"
-        android:textSize="12dp"
+        android:textSize="12sp"
         app:layout_constraintStart_toStartOf="@+id/currency_textview_name"
         app:layout_constraintTop_toBottomOf="@+id/currency_textview_name" />
     <TextView
-        android:id="@+id/currency_textview_conta"
-        app:layout_constraintStart_toStartOf="@+id/currency_textview_display_conta"
-        app:layout_constraintTop_toBottomOf="@+id/currency_textview_display_conta"
+        android:id="@+id/currency_textview_account"
+        app:layout_constraintStart_toStartOf="@+id/currency_textview_display_account"
+        app:layout_constraintTop_toBottomOf="@+id/currency_textview_display_account"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="2050 / 01.111222-4"
+        tools:text="@sample/account.json/userAccount/agency"
         android:textColor="@android:color/white"
-        android:textSize="25dp" />
+        android:textSize="25sp" />
 
     <TextView
-        android:id="@+id/currency_textview_display_saldo"
+        android:id="@+id/currency_textview_display_balance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:text="@string/display_saldo"
         android:textColor="@android:color/white"
-        android:textSize="12dp"
-        app:layout_constraintStart_toStartOf="@+id/currency_textview_conta"
-        app:layout_constraintTop_toBottomOf="@+id/currency_textview_conta" />
+        android:textSize="12sp"
+        app:layout_constraintStart_toStartOf="@+id/currency_textview_account"
+        app:layout_constraintTop_toBottomOf="@+id/currency_textview_account" />
     <TextView
-        android:id="@+id/currency_textview_saldo"
-        app:layout_constraintStart_toStartOf="@+id/currency_textview_display_saldo"
-        app:layout_constraintTop_toBottomOf="@+id/currency_textview_display_saldo"
+        android:id="@+id/currency_textview_balance"
+        app:layout_constraintStart_toStartOf="@+id/currency_textview_display_balance"
+        app:layout_constraintTop_toBottomOf="@+id/currency_textview_display_balance"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="R$1.000,00"
+        tools:text="@sample/account.json/userAccount/balance"
         android:textColor="@android:color/white"
-        android:textSize="25dp" />
+        android:textSize="25sp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
