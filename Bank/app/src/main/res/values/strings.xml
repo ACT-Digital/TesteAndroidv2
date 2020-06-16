@@ -10,4 +10,5 @@
     <string name="account">conta</string>
     <string name="balance">saldo</string>
     <string name="recent">Recentes</string>
+    <string name="statement_list_error">Não foi possível listar as últimas transações</string>
 </resources>

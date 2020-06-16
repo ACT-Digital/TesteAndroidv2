@@ -1,10 +1,8 @@
-package academy.mukandrew.bank.presenter.auth
+package academy.mukandrew.bank.presentation.auth
 
 import academy.mukandrew.bank.R
 import academy.mukandrew.bank.domain.models.UserInfo
-import academy.mukandrew.bank.presenter.BankActivity
-import android.graphics.ColorFilter
-import android.graphics.PorterDuff
+import academy.mukandrew.bank.presentation.BankActivity
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View

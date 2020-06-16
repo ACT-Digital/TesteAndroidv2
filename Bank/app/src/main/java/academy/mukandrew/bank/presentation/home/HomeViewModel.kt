@@ -1,4 +1,4 @@
-package academy.mukandrew.bank.presenter.home
+package academy.mukandrew.bank.presentation.home
 
 import academy.mukandrew.bank.commons.extensions.ioScope
 import academy.mukandrew.bank.data.models.BaseResponse
@@ -17,6 +17,7 @@ class HomeViewModel(
     val statementList = MutableLiveData<List<Statement>>()
     val currentUser = MutableLiveData<UserInfo>()
     val logoutResult = MutableLiveData<Boolean>()
+    val statementListResult = MutableLiveData<Boolean>()
 
     init {
         getCurrentUser()
@@ -24,23 +25,33 @@ class HomeViewModel(
 
     private fun getCurrentUser() {
         ioScope.launch {
-            when (val response = authUseCase.getCurrentUser()) {
-                is BaseResponse.Success -> {
-                    currentUser.postValue(response.data)
-                    requestStatements(response.data.id.toString())
-                }
-                is BaseResponse.Error -> {
-                }
+            getCurrentUserCallback(authUseCase.getCurrentUser())
+        }
+    }
+
+    private fun getCurrentUserCallback(response: BaseResponse<UserInfo>) {
+        when (response) {
+            is BaseResponse.Success -> {
+                currentUser.postValue(response.data)
+                requestStatements(response.data.id.toString())
+            }
+            is BaseResponse.Error -> {
+                postLogout()
             }
         }
     }
 
-    private suspend fun requestStatements(userId: String) {
-        when (val response = useCase.getStatementList(userId)) {
+    private fun requestStatements(userId: String) {
+        ioScope.launch { statementListCallback(useCase.getStatementList(userId)) }
+    }
+
+    private fun statementListCallback(response: BaseResponse<List<Statement>>) {
+        when (response) {
             is BaseResponse.Success -> {
                 statementList.postValue(response.data)
             }
             is BaseResponse.Error -> {
+                statementListResult.postValue(true)
             }
         }
     }

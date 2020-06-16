@@ -1,10 +1,10 @@
-package academy.mukandrew.bank.presenter.home
+package academy.mukandrew.bank.presentation.home
 
 import academy.mukandrew.bank.R
 import academy.mukandrew.bank.domain.models.Statement
 import academy.mukandrew.bank.domain.models.UserInfo
-import academy.mukandrew.bank.presenter.BankActivity
-import academy.mukandrew.bank.presenter.home.list.StatementAdapter
+import academy.mukandrew.bank.presentation.BankActivity
+import academy.mukandrew.bank.presentation.home.list.StatementAdapter
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,7 +14,7 @@ import androidx.core.graphics.BlendModeColorFilterCompat
 import androidx.core.graphics.BlendModeCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import kotlinx.android.synthetic.main.fragment_auth.*
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.progressBar
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -61,6 +61,7 @@ class HomeFragment : Fragment() {
             currentUser.observe(viewLifecycleOwner, bindUserInformation)
             statementList.observe(viewLifecycleOwner, bindList)
             logoutResult.observe(viewLifecycleOwner, bindLogout)
+            statementListResult.observe(viewLifecycleOwner, bindListError)
         }
     }
 
@@ -77,5 +78,9 @@ class HomeFragment : Fragment() {
     private val bindList = Observer { list: List<Statement> ->
         progressBar.visibility = View.INVISIBLE
         (statementList.adapter as? StatementAdapter)?.submitList(list)
+    }
+
+    private val bindListError = Observer { hasError: Boolean ->
+        if (hasError) Snackbar.make(homeRootView, R.string.statement_list_error, Snackbar.LENGTH_LONG).show()
     }
 }

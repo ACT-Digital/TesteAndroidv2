@@ -1,4 +1,4 @@
-package academy.mukandrew.bank.presenter.auth
+package academy.mukandrew.bank.presentation.auth
 
 import academy.mukandrew.bank.R
 import academy.mukandrew.bank.commons.extensions.ioScope

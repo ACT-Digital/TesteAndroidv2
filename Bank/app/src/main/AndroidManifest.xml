@@ -15,7 +15,7 @@
         android:theme="@style/AppTheme">
         <activity
 
-            android:name=".presenter.BankActivity"
+            android:name=".presentation.BankActivity"
             tools:ignore="AllowBackup">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

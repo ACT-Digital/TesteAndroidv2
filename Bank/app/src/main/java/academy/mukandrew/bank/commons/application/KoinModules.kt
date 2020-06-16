@@ -8,8 +8,8 @@ import academy.mukandrew.bank.data.repositories.StatementRepository
 import academy.mukandrew.bank.data.services.local.Database
 import academy.mukandrew.bank.domain.useCases.AuthUseCase
 import academy.mukandrew.bank.domain.useCases.StatementUseCase
-import academy.mukandrew.bank.presenter.auth.AuthViewModel
-import academy.mukandrew.bank.presenter.home.HomeViewModel
+import academy.mukandrew.bank.presentation.auth.AuthViewModel
+import academy.mukandrew.bank.presentation.home.HomeViewModel
 import androidx.room.Room
 import net.sqlcipher.database.SQLiteDatabase
 import net.sqlcipher.database.SupportFactory

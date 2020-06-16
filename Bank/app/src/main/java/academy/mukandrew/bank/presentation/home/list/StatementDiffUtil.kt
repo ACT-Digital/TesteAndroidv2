@@ -1,4 +1,4 @@
-package academy.mukandrew.bank.presenter.home.list
+package academy.mukandrew.bank.presentation.home.list
 
 import academy.mukandrew.bank.domain.models.Statement
 import androidx.recyclerview.widget.DiffUtil
