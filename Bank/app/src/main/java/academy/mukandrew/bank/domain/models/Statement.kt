@@ -1,5 +1,7 @@
 package academy.mukandrew.bank.domain.models
 
+import academy.mukandrew.bank.commons.extensions.formatBrCurrency
+import academy.mukandrew.bank.commons.extensions.formatBrDate
 import academy.mukandrew.bank.data.models.statement.StatementItemResponse
 
 data class Statement(
@@ -8,6 +10,14 @@ data class Statement(
     val date: String,
     val value: Float
 ) {
+    fun getDateFormatted(): String {
+        return date.formatBrDate("yyyy-MM-dd", "dd/MM/yyyy")
+    }
+
+    fun getValueFormatted(): String {
+        return value.formatBrCurrency()
+    }
+
     companion object {
         fun createFrom(item: StatementItemResponse): Statement {
             return Statement(

@@ -1,5 +1,8 @@
 package academy.mukandrew.bank.commons.extensions
 
+import java.text.SimpleDateFormat
+import java.util.*
+
 fun String.isValidEmail(): Boolean {
     return android.util.Patterns.EMAIL_ADDRESS.matcher(this).matches()
 }
@@ -65,4 +68,14 @@ fun String.isValidCPF(): Boolean {
     }
 
     return true
+}
+
+fun String.formatBrDate(fromPattern: String, toPattern: String): String {
+    return try {
+        SimpleDateFormat(fromPattern, Locale.getDefault()).parse(this)?.let {
+            SimpleDateFormat(toPattern, Locale.getDefault()).format(it)
+        } ?: String()
+    } catch (e: java.lang.Exception) {
+        String()
+    }
 }

@@ -3,7 +3,10 @@ package academy.mukandrew.bank.presenter
 import academy.mukandrew.bank.R
 import academy.mukandrew.bank.presenter.auth.AuthFragment
 import academy.mukandrew.bank.presenter.home.HomeFragment
+import android.content.Context
 import android.os.Bundle
+import android.os.VibrationEffect
+import android.os.Vibrator
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 

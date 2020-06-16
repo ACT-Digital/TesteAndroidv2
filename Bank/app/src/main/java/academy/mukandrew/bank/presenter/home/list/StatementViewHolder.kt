@@ -21,7 +21,7 @@ class StatementViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
     fun bind(statement: Statement) = with(itemView) {
         itemTitleTextView.text = statement.title
         itemDescriptionTextView.text = statement.description
-        itemDateTextView.text = statement.date
-        itemValueTextView.text = statement.value.toString()
+        itemDateTextView.text = statement.getDateFormatted()
+        itemValueTextView.text = statement.getValueFormatted()
     }
 }
