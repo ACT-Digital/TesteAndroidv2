@@ -1,28 +1,48 @@
 package com.drebtchinsky.testeandroidv2.ui.activity;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.ProgressBar;
+import android.widget.Toast;
 
-import com.drebtchinsky.testeandroidv2.DAO.StatementListDAO;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.drebtchinsky.testeandroidv2.DAO.UserAccountDAO;
 import com.drebtchinsky.testeandroidv2.R;
+import com.drebtchinsky.testeandroidv2.asynctask.BaseAsyncTask;
 import com.drebtchinsky.testeandroidv2.database.BankDatabase;
-import com.drebtchinsky.testeandroidv2.entity.StatementList;
 import com.drebtchinsky.testeandroidv2.entity.UserAccount;
+import com.drebtchinsky.testeandroidv2.retrofit.BankRetrofit;
+import com.drebtchinsky.testeandroidv2.retrofit.service.UserAccountService;
+import com.drebtchinsky.testeandroidv2.utils.NetworkUtils;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import org.jetbrains.annotations.Nullable;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import retrofit2.Call;
+import retrofit2.Response;
 
 public class LoginActivity extends AppCompatActivity {
 
     private UserAccountDAO userAccountDAO;
-    private StatementListDAO statementListDAO;
     private Context context;
+    private ProgressBar progressBar;
+    private EditText editUser;
+    private EditText editPassword;
+    private Button btnLogin;
+    private ImageView imageLogo;
+    private NetworkUtils networkUtils;
 
 
     @Override
@@ -30,55 +50,97 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         this.context = this;
+
         userAccountDAO = BankDatabase.getInstance(context)
                 .getUserAccountDAO();
-        statementListDAO = BankDatabase.getInstance(context)
-                .getStatementListDAO();
+
+        if(userAccountDAO.getAll().size()>0){
+            callIntent();
+        }
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        setAllView();
+
+        setLoading(false);
+        networkUtils = new NetworkUtils(this);
+    }
+
+    private void setAllView() {
+        progressBar = findViewById(R.id.login_progressBar);
+        editUser = findViewById(R.id.login_edit_user);
+        editPassword = findViewById(R.id.login_edit_password);
+        btnLogin = findViewById(R.id.login_btn_login);
+        imageLogo = findViewById(R.id.login_image_logo);
     }
 
     public void clickLogin(View view) {
-        Intent intent = new Intent(this, CurrencyActivity.class);
+        if (networkUtils.isNetworkConnected()) {
+            setLoading(true);
+
+            Call<Map<String, UserAccount>> loginCall = prepareRequestParams();
+
+            new BaseAsyncTask<>(() -> {
+                return getResponse(loginCall);
+            }, userAccount -> {
+                if (userAccount != null) {
+                    saveUser(userAccount);
+                    callIntent();
+                } else {
+                    setLoading(false);
+                    Toast.makeText(this, "Não foi possivel realizar o login!", Toast.LENGTH_LONG).show();
+                }
+            }).execute();
+        }else{
+            Toast.makeText(this, "Não foi possivel realizar o login, pois você não está conectado a internet!", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void setLoading(boolean loading) {
+        progressBar.setVisibility(loading ? View.VISIBLE : View.INVISIBLE);
+        editUser.setVisibility(loading ? View.INVISIBLE : View.VISIBLE);
+        editPassword.setVisibility(loading ? View.INVISIBLE : View.VISIBLE);
+        btnLogin.setVisibility(loading ? View.INVISIBLE : View.VISIBLE);
+        imageLogo.setVisibility(loading ? View.INVISIBLE : View.VISIBLE);
+    }
+
+    private void saveUser(UserAccount userAccount) {
         userAccountDAO.removeAll();
-        statementListDAO.removeAll();
+        userAccountDAO.create(userAccount);
+    }
 
-        userAccountDAO.create(new UserAccount(
-                1,
-                "Jose da Silva Teste",
-                "2050",
-                "012314564",
-                33445
-        ));
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+    @Nullable
+    private UserAccount getResponse(Call<Map<String, UserAccount>> loginCall) {
+        try {
+            Response<Map<String, UserAccount>> response = loginCall.execute();
+            UserAccount userAccount = response.body().get("userAccount");
+            return userAccount;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
 
+    private Call<Map<String, UserAccount>> prepareRequestParams() {
+        String user = editUser.getText().toString();
+        String password = editPassword.getText().toString();
+        UserAccountService userAccountService = new BankRetrofit().getUserAccountService();
 
-        statementListDAO.create(new StatementList(
-                "Pagamento",
-                "Conta de luz",
-                "2018-08-15",
-                -50
-        ));
+        Map<String, Object> jsonParams = new HashMap<>();
+        jsonParams.put("user", user);
+        jsonParams.put("password", password);
 
-        statementListDAO.create(new StatementList(
-                "TED Recebida",
-                "Joao Alfredo",
-                "2018-07-25",
-                745.03
-        ));
+        RequestBody body = RequestBody.create(MediaType.parse("application/json; charset=utf-8"), (new JSONObject(jsonParams)).toString());
 
-        statementListDAO.create(new StatementList(
-                "DOC Recebida",
-                "Victor Silva",
-                "2018-06-23",
-                399.9
-        ));
+        return userAccountService.login(body);
+    }
 
-        statementListDAO.create(new StatementList(
-                "Pagamento",
-                "Conta de internet",
-                "2018-05-12",
-                -73.4
-        ));
-
+    private void callIntent() {
+        Intent intent = new Intent(this, CurrencyActivity.class);
         startActivity(intent);
     }
 }

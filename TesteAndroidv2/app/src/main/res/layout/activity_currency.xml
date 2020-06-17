@@ -6,6 +6,17 @@
     android:layout_height="match_parent"
     tools:context=".ui.activity.CurrencyActivity">
 
+    <ProgressBar
+        android:id="@+id/currency_progressBar"
+        style="@android:style/Widget.DeviceDefault.Light.ProgressBar.Large"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="@+id/currency_listview_statement"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/currency_view" />
+
     <View
         android:id="@+id/currency_view"
         android:layout_width="0dp"
@@ -28,7 +39,11 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/currency_view"
-        tools:listitem="@layout/item_statement" />
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        tools:listitem="@layout/item_statement" >
+
+    </ListView>
 
     <TextView
         android:id="@+id/currency_textview_name"
